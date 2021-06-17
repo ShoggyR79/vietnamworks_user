@@ -1,4 +1,4 @@
-const { getList, getDetail } = require("../services/user.services")
+const { getList, getDetail, create } = require("../services/user.services")
 
 
 
@@ -22,7 +22,21 @@ const getUserById = (req, res)=>{
     }
 }
 
+const createUser = (req, res) =>{
+    let input = req.body;
+    
+    const newStudent = create(input)
+    if (newStudent){
+        res.status(201).send(newStudent);
+    }
+    else{
+        res.status(409).send("Username and/or Email already exists!")
+    }
+}
+
 
 module.exports = {
-    getUserList
+    getUserList,
+    getUserById,
+    createUser
 }

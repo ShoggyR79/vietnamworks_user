@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const {User} = require('../models/user')
+const { User } = require('../models/user')
 
 mongoose.connect('mongodb://localhost:27017/users', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
@@ -10,20 +10,21 @@ mongoose.connect('mongodb://localhost:27017/users', { useNewUrlParser: true, use
     })
 
 
-const getList = () =>{
+const getList = () => {
     User
-        .getCollectionInfos()
-        .then(userArr =>{
+        .find()
+        .select('username email firstName lastName')
+        .then(userArr => {
             if (!userArr) return false;
             return userArr;
         })
-        .catch(err =>{
+        .catch(err => {
             console.log(err);
             return false;
         })
 }
 
-const getDetail = (id) =>{
+const getDetail = (id) => {
     User
         .findById(id)
         .then(user => {
@@ -33,8 +34,28 @@ const getDetail = (id) =>{
         .catch(console.log)
 }
 
+const create = (input) => {
+    let {username, email} = input
+    console.log("test", username)
+    User
+        .findOne()
+        .or([{ username}, {email}])
+        .then(user => {
+            if (user) return false;
+            const newUser = new User({
+                ...input,
+            })
+            return newUser.save()
+                .then(user => {
+                    return user;
+                })
+        })
+        .catch(console.log)
+}
+
 
 module.exports = {
     getList,
-    getDetail
+    getDetail,
+    create
 }
