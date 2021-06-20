@@ -2,34 +2,36 @@ const { getList, getDetail, create } = require("../services/user.services")
 
 
 
-const getUserList = (req, res) =>{
-    const userList = getList()
-    if (userList){
-        res.status(200).send(studentList)
-    }else{
+const getUserList = async (req, res) => {
+    const userList = await getList()
+    if (userList) {
+        res.status(200).send(userList)
+    } else {
         res.status(404).send("Not found!")
     }
 }
 
-const getUserById = (req, res)=>{
-    const {id} = req.params;
-    const student = getDetail(id);
+const getUserById = async (req, res) => {
+    const { id } = req.params;
+    const student = await getDetail(id);
 
     if (student) {
         res.status(200).send(student)
-    }else{
+    } else {
         res.status(404).send("Not found!")
     }
 }
 
-const createUser = (req, res) =>{
+const createUser = async (req, res) => {
     let input = req.body;
-    
-    const newStudent = create(input)
-    if (newStudent){
+
+    let newStudent = await create(input)
+
+    console.log("test", newStudent)
+    if (newStudent) {
         res.status(201).send(newStudent);
     }
-    else{
+    else {
         res.status(409).send("Username and/or Email already exists!")
     }
 }

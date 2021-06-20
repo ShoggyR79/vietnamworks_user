@@ -10,47 +10,35 @@ mongoose.connect('mongodb://localhost:27017/users', { useNewUrlParser: true, use
     })
 
 
-const getList = () => {
-    User
+const getList = async () => {
+    const userArr = await User
         .find()
-        .select('username email firstName lastName')
-        .then(userArr => {
-            if (!userArr) return false;
-            return userArr;
-        })
-        .catch(err => {
-            console.log(err);
-            return false;
-        })
+        .select('username email firstName lastName').exec()
+
+    return userArr
+
 }
 
-const getDetail = (id) => {
-    User
+const getDetail = async (id) => {
+    const user = await User
         .findById(id)
-        .then(user => {
-            if (!user) return false;
-            return user;
-        })
-        .catch(console.log)
+    if (!user) return false;
+    return user;
 }
 
-const create = (input) => {
-    let {username, email} = input
-    console.log("test", username)
-    User
+const create = async (input) => {
+    let { username, email } = input
+
+    //todo: middleware
+    const user = await User
         .findOne()
-        .or([{ username}, {email}])
-        .then(user => {
-            if (user) return false;
-            const newUser = new User({
-                ...input,
-            })
-            return newUser.save()
-                .then(user => {
-                    return user;
-                })
-        })
-        .catch(console.log)
+        .or([{ username }, { email }])
+
+    if (user) return false;
+    const newUser = new User({
+        ...input,
+    })
+    return newUser.save();
 }
 
 
