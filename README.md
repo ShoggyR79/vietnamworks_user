@@ -1,9 +1,9 @@
-**Implementation of user's API and CRUD functions 
+**Implementation of user's API and CRUD functions** 
 
 based upon a widespread job-recruiting website
 
 
-*Currently completed functions:
+*Currently completed functions*:
 - getUserList,
 - getUserByID,
 - createUser,
@@ -11,7 +11,7 @@ based upon a widespread job-recruiting website
 - deleteUser
 
 
-**TODO:
+**TODO**:
 
 - middlewares
 - code polishing
