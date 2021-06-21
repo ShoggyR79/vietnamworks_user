@@ -6,4 +6,12 @@ based upon a widespread job-recruiting website
 *Currently completed functions:
 - getUserList,
 - getUserByID,
-- createUser
+- createUser,
+- updateUser,
+- deleteUser
+
+
+##TODO:
+
+- middlewares
+- code polishing
