@@ -15,10 +15,10 @@ const UserSchema = new mongoose.Schema({
         currentJobLevel: {type: String },
         yearsExperience: {type: Number }
     },
-    contactinfo:{
+    contactInfo:{
         cellNumber: {type: String},
         dateOfBirth: {type: Date},
-        Nationality: {type: String},
+        nationality: {type: String},
         gender: {type: String},
         maritalStatus: {type: String},
         country: {type: String},

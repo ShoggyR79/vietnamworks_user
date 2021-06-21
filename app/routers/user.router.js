@@ -1,5 +1,5 @@
 const express = require('express');
-const { getUserList, getUserById, createUser } = require('../controllers/user.controllers');
+const { getUserList, getUserById, createUser, updateUser, deleteUser } = require('../controllers/user.controllers');
 const userRouter = express.Router();
 
 userRouter.use(express.json())
@@ -14,6 +14,12 @@ userRouter.get("/:id", getUserById)
 // TODO: add middleware
 userRouter.post("/", createUser)
 
+//update a user
+// add middleware
+userRouter.put("/:id", updateUser)
+
+//delete a user
+userRouter.delete("/:id", deleteUser)
 
 
 module.exports = userRouter

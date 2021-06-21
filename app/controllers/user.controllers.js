@@ -1,4 +1,4 @@
-const { getList, getDetail, create } = require("../services/user.services")
+const { getList, getDetail, create, update, deleteById } = require("../services/user.services")
 
 
 
@@ -25,9 +25,8 @@ const getUserById = async (req, res) => {
 const createUser = async (req, res) => {
     let input = req.body;
 
-    let newStudent = await create(input)
+    const newStudent = await create(input)
 
-    console.log("test", newStudent)
     if (newStudent) {
         res.status(201).send(newStudent);
     }
@@ -36,9 +35,36 @@ const createUser = async (req, res) => {
     }
 }
 
+const updateUser = async (req, res) => {
+    let { id } = req.params;
+    const input = req.body;
+
+    const updatedUser = await update(id, input);
+
+    if (updatedUser) {
+        res.status(200).send(updatedUser);
+    } else {
+        res.status(404).send("User not found!")
+    }
+
+}
+
+
+const deleteUser = async(req, res)=>{
+    let {id} = req.params;
+    
+    const deletedUser = await deleteById(id)
+    if (deletedUser){
+        res.status(200).send(deletedUser);
+    }else{
+        res.status(404).send("User not found!")
+    }
+}
 
 module.exports = {
     getUserList,
     getUserById,
-    createUser
+    createUser,
+    updateUser,
+    deleteUser
 }

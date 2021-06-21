@@ -42,8 +42,35 @@ const create = async (input) => {
 }
 
 
+const update = async (id, input) => {
+    try {
+        const result = await User.findByIdAndUpdate(id, { ...input }).exec();
+        console.log(result)
+        return result;
+    }
+    catch (err) {
+        return false;
+    }
+
+}
+
+const deleteById = async (id) => {
+    const byId = { _id: id };
+    try {
+        const deleteUser = await User.findOne(byId);
+        if (deleteUser){
+            await User.deleteOne(byId);
+            return deleteUser;
+        }
+    }
+    catch (err) {
+        return false;
+    }
+}
 module.exports = {
     getList,
     getDetail,
-    create
+    create,
+    update,
+    deleteById
 }
