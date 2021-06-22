@@ -15,11 +15,8 @@ const getUserById = async (req, res) => {
     const { id } = req.params;
     const student = await getDetail(id);
 
-    if (student) {
-        res.status(200).send(student)
-    } else {
-        res.status(404).send("Not found!")
-    }
+    res.status(200).send(student)
+    
 }
 
 const createUser = async (req, res) => {
@@ -30,9 +27,7 @@ const createUser = async (req, res) => {
     if (newStudent) {
         res.status(201).send(newStudent);
     }
-    else {
-        res.status(409).send("Username and/or Email already exists!")
-    }
+    
 }
 
 const updateUser = async (req, res) => {
@@ -43,10 +38,7 @@ const updateUser = async (req, res) => {
 
     if (updatedUser) {
         res.status(200).send(updatedUser);
-    } else {
-        res.status(404).send("User not found!")
-    }
-
+    } 
 }
 
 
@@ -56,8 +48,6 @@ const deleteUser = async(req, res)=>{
     const deletedUser = await deleteById(id)
     if (deletedUser){
         res.status(200).send(deletedUser);
-    }else{
-        res.status(404).send("User not found!")
     }
 }
 
